@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DOM Explorer | Task Manager</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+
+  <header class="site-header">
+    <div class="header-inner">
+      <h1>DOM Explorer <span class="accent">Task Manager</span></h1>
+      <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle dark and light mode">
+        <span class="theme-icon">🌙</span>
+        <span class="theme-label">Dark Mode</span>
+      </button>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <section class="panel" id="task-form-panel">
+      <h2>Add a Task</h2>
+      <form id="task-form" autocomplete="off">
+        <div class="form-row">
+          <label for="task-title">Task Title</label>
+          <input type="text" id="task-title" name="task-title" placeholder="e.g. Finish DOM assignment" required>
+        </div>
+
+        <div class="form-row">
+          <label for="task-category">Category</label>
+          <select id="task-category" name="task-category">
+            <option value="general">General</option>
+            <option value="study">Study</option>
+            <option value="work">Work</option>
+            <option value="personal">Personal</option>
+            <option value="urgent">Urgent</option>
+          </select>
+        </div>
+
+        <button type="submit" id="add-task-btn" class="btn btn-primary">Add Task</button>
+      </form>
+    </section>
+
+    <section class="panel controls-panel">
+      <div class="controls-row">
+        <input type="text" id="search-input" placeholder="Search tasks by title..." aria-label="Search tasks">
+
+        <select id="filter-category" aria-label="Filter by category">
+          <option value="all">All Categories</option>
+          <option value="general">General</option>
+          <option value="study">Study</option>
+          <option value="work">Work</option>
+          <option value="personal">Personal</option>
+          <option value="urgent">Urgent</option>
+        </select>
+
+        <button id="clear-all-btn" class="btn btn-danger-outline" type="button">Clear All</button>
+      </div>
+
+      <div class="stats-row">
+        <span class="stat-badge">Pending: <strong id="pending-count">0</strong></span>
+        <span class="stat-badge">Completed: <strong id="completed-count">0</strong></span>
+        <span class="stat-badge">Total: <strong id="total-count">0</strong></span>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>Your Tasks</h2>
+
+      <div id="task-list" class="task-list"></div>
+      <p id="empty-state" class="empty-state">No tasks yet. Add one above to get started.</p>
+    </section>
+
+    <section class="panel concepts-panel">
+      <h2>DOM Concepts Lab</h2>
+      <p class="panel-subtitle">Small live demos for the concepts this project is built on.</p>
+
+      <div class="demo-block">
+        <h3>1. Property vs Attribute</h3>
+        <p class="demo-explainer">
+          Type something in the box below. <code>input.value</code> (the property) updates live as you type,
+          but <code>input.getAttribute("value")</code> (the attribute) stays frozen at whatever the HTML
+          originally said — it only reflects the starting state, not the current one.
+        </p>
+        <input type="text" id="demo-input" value="starting-text" class="demo-input">
+        <button id="compare-btn" type="button" class="btn btn-secondary">Compare value vs attribute</button>
+        <div class="demo-output" id="property-output">
+          <p><strong>input.value (property):</strong> <span id="prop-value-output">—</span></p>
+          <p><strong>input.getAttribute("value") (attribute):</strong> <span id="attr-value-output">—</span></p>
+        </div>
+      </div>
+
+      <div class="demo-block">
+        <h3>2. Event Propagation: Bubbling vs Capturing</h3>
+        <p class="demo-explainer">
+          Pick a phase, then click the inner button. Open your browser console to see the exact firing order,
+          which is also mirrored in the log box below.
+        </p>
+
+        <select id="propagation-mode" class="demo-select">
+          <option value="bubble">Bubbling Phase</option>
+          <option value="capture">Capturing Phase</option>
+        </select>
+
+        <div class="propagation-demo" id="grandparent">
+          Grandparent
+          <div class="propagation-demo inner" id="parent">
+            Parent
+            <button class="propagation-demo child-btn" id="child-button" type="button">Child Button</button>
+          </div>
+        </div>
+
+        <div class="demo-output" id="propagation-log">
+          <p class="log-title">Execution order:</p>
+          <ol id="propagation-log-list"></ol>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel pipeline-panel">
+      <h2>Browser Rendering Pipeline</h2>
+      <p class="panel-subtitle">How the browser turns this page's HTML and CSS into pixels on screen.</p>
+
+      <div class="pipeline-flow">
+        <div class="pipeline-track">
+          <div class="pipeline-card">HTML</div>
+          <div class="pipeline-arrow">→</div>
+          <div class="pipeline-card">Parsing</div>
+          <div class="pipeline-arrow">→</div>
+          <div class="pipeline-card">Tokenization</div>
+          <div class="pipeline-arrow">→</div>
+          <div class="pipeline-card pipeline-card-result">DOM Tree</div>
+        </div>
+
+        <div class="pipeline-track">
+          <div class="pipeline-card">CSS</div>
+          <div class="pipeline-arrow">→</div>
+          <div class="pipeline-card pipeline-card-result">CSSOM Tree</div>
+        </div>
+
+        <div class="pipeline-merge">
+          <div class="pipeline-card pipeline-card-result">DOM Tree + CSSOM Tree</div>
+          <div class="pipeline-arrow pipeline-arrow-down">↓</div>
+          <div class="pipeline-card pipeline-card-final">Render Tree</div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <p>DOM Explorer — Task Manager. Built with plain HTML, CSS and JavaScript. No frameworks.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
